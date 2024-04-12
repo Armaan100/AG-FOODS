@@ -105,4 +105,99 @@ What is does is, it does not reloads the whole page, rather it just replaces the
 
 # Life Cycle of Class Based Components 
 - Mouting or Loading of the component...How?
--
+
+- Parent Class Based Component(AboutClass) and it renders another Class
+  Based Component(UserInfoClass),
+   AboutClass has constructor(props){...console.log("Parent Constructor Called)},
+  componentDidMount(){...console.log("Parent Did Mount")}, 
+  render(){console.log("Parent Render")...<UserInfoClass/>...}
+  UserInfoClass has constructor(props){...console.log("Child Constructor Called")}, componentDidMount(){...console.log("Child Did Mount")}, render(){console.log("Child Rendered")...}
+
+-So, output will be in the sequence:
+ Parent Constructor Called
+ Parent Rendered 
+ Child Constructor Called
+ Child Rendered
+ Child Did Mount
+ Parent Did Mount
+
+-Reason: Parent Constructor Called, And When Parent Render is called
+         then it calls its Chlid Class and therefore mounting of the parent class is not finished, hence child constructor is
+         called, then child render is called => child class is put on the DOM, hence Child Did Mount is called => Rendering is finished of the parent class and is put on the DOM => Parent Did Mount is called.
+
+
+-Use of ComponentDidMount() ? => To make API calls but why??
+
+-Let's Move on to Functional Based Components:
+ To make API calls in Functional Based Comopnents, we use
+ UseEffect(()=>{//API Call}, [])  -> the single dependecy array indicated that the API call will be made ONCE
+
+ Why do we use UseEffect() ? 
+ Basically, first we load the Comoponent and once the component is loaded
+ we fill the Component with the details of the API
+ We don't want to wait for the API call to return data and after that render the component.
+ React wantd to quickly render it, then make an API call and then fill the data ✅
+
+-Let's move back to ClassBased Components now.
+ Similarly, we want to first render the ClassBased Component quickly, then make API call and fill up with the data. And since ComponentDidMount() is called after component is mounted/loaded into the DOM hence we make API Calls in ComponentDid Mount✅
+
+
+
+
+-Now, if a Parent Class has multiple ChildBased Components then...
+ Parent(About Us) -> Child1(User1) then Child2(User2)
+
+ Correct Order will be:
+
+ -Parent Component Constructor
+ -Parent Comoponet Render
+   [-User1 Child Constructor
+   -User1 Child Render
+
+   -User2 Child Constructor
+   -User2 Child Render]
+
+   -After Reconciliation Algo working, findind out the diffs
+   <DOM UPDATED - IN SINGLE BATCH>
+   [-User1 Child Component Did Mount
+   -user2 Child Component Did Mount]
+-Parent Component Did Mount
+
+BUT WHYY in the above order????
+
+-Why react is fast?
+-A component in React is Mounted in two phases:
+ Phase-1: Render Phase
+ Phase-2: Commit Phase
+
+-Render Phase: When our component is mounted then first Constructor is 
+               called and then the Render
+-Commit Phase: Then, react actually updates the DOM, and after that 
+               componentDidMount() is called
+               and therefore best place to make an API Call in the 
+               componentDidMount()
+ 
+
+ -Now, let's give the answer to why it happend like this:
+ 1. Parent Constructor is called, Parent render is called (Phase-1)
+ 2. User1's and User2's (Render Phase are batched) i.e., first both
+     User1's constructor and then render is called and after that 
+     User's cconstructor and then render is called
+     (OP Optimization of React comes into play damn=>React is fast tbh)
+ 3. After that User1 and User2's(Commit Phase are batched) i.e, now,
+     second phase of User1 and User2 are grouped so, User1's 
+     componentDidMount() and then User2's componentDidiMount() is called.
+ 4. Now, Parent rendering is completed(Render Phase of Parent finished)
+ 5. Then, Commit Phase of Parent happens and the Parent componentDidMount
+    is called now.
+
+    Done 😁
+
+
+ -Render Phase happens very very fast, 
+ -Commit Phase takes time as DOM Manipulation is expensive
+
+
+-Link for Lifecycle Diagram:<a href="https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/">LifeCycle Diagram</a>
+
+

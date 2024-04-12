@@ -16,18 +16,23 @@ class UserClass extends React.Component {
         }
     }
 
-  render() {
+    componentDidMount(){
+      console.log("Component has Mounted!")
+    }
+
+    render() {
 
     const {name, location, contact} = this.props;
     const {count} = this.state;  //destructuring the state object
 
     return (
       <div className="user-card">
-        <h1>Count: {count}</h1>    //OR this.state.count
+        <h1>Count: {count}</h1>    
+        {/* OR this.state.count <-> {count} */}
         <button
         onClick={() => {
             //NEVER UPDATE STATE VARIABLES DIRECTLY
-            //So, NEVER --> this.state.count = this.state.count + 1;
+            //So, NEVER --> this.state.count = this.state.count + 1;  It will not update the state variable
             
             //React gives access to an imp function called this.setState
             //In this this.setState function, we will pass an object containing the updated values our our state variables
@@ -43,7 +48,7 @@ class UserClass extends React.Component {
         <h3>Contact: {contact}</h3>
       </div>
     );
-  }
+    }
 }
 
 export default UserClass;

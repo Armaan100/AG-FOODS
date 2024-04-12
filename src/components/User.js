@@ -6,6 +6,19 @@ const User = (props) => {
     const [count2, setCount2] = useState(1);
     return (
         <div className="user-card">
+            <button
+            onClick={()=>{
+                setCount(count+1);
+            }}
+            >Click Count
+            </button><br/> 
+            <button
+            onClick={()=>{
+                setCount(0);
+            }}
+            >
+                Reset Count
+            </button>
             <h1>Count: {count}</h1>
             <h1>Count: {count2}</h1>
             <h1>Name: {props.name}</h1>
