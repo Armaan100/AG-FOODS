@@ -94,6 +94,7 @@ What is does is, it does not reloads the whole page, rather it just replaces the
 
 
 
+
 # 2 types of routing in Web Apps
 - Server Side Routing -> We have a index.html, about.html, contact.html and then if click on my anchor tag then it send a network call on about.html and refreshes the whole page
 
@@ -201,3 +202,174 @@ BUT WHYY in the above order????
 -Link for Lifecycle Diagram:<a href="https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/">LifeCycle Diagram</a>
 
 
+-----MOUNTING-------(First Mounting Cycle Happens)
+
+Constructor(dummy)
+Render(dummy)
+    <HTML (Dummy)>
+Component Did Mount
+    <API Call>
+    <this.setState> -> State variable is Updated -> then and then UPDATING begins
+
+
+
+-----UPDATING-----(Second, Updating Cycle Happens)
+
+Render(API data)
+    <HTML (New API data)>
+Component Did Update
+
+
+
+-----UNMOUNTING------
+Component Will Unmount
+
+
+
+-UNMOUNTING: componentWillUnmount() will be called when the component 
+             will be unmounted/disappear/go from the page
+
+-This is how earlier people used to write react codes 
+
+
+
+
+
+
+
+--------------------Disclaimer------------------
+Never ever compare React's LifeCycle Components with Functional Components
+useEffect() is not based on componentDidMount(), it is a complete another way at behind it
+
+
+if no dependency array is put in useEffect => then the useEffect の
+function will be called after each and every render
+
+...(left to learn in Classy Classy)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Single Responsibility Principle
+- Any single identity(a function, a class) we have, should have single responsibilty
+
+- Any component should have a single identity
+
+- Modularity for more readablility, more testability and maintainable
+
+- Advantage: Reusable, Maintainable, Testable
+
+
+
+
+
+
+
+
+
+
+
+
+# Custom Hooks
+
+- Hooks: Normal JS functions given to us
+         
+- Custom Hooks: JS functions made by us
+                Helps in making code more readable,modular, and testable
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Chunking / Code Splitting / Dynamic Bundling / Lazr Loading / On Demand Loading
+- To break down the app into smaller logical chunks
+- A bundle should have enough code for a major feature
+- eg., In MakeMyTrip, bundle for Flighs, another bundle 
+  HomeStay, another for Hotels, etc., i.e., smaller application inside a big
+  application
+- Required because it does not put a load on a single 
+  bundler and it does not take very a long time for the bundler to get load
+- Suppose, in our app we have a grocery business and a grocery page, so, in this case we would use another bundler for grocery part
+- It is also called Lazy Loading because, it doesn't load the js file at the first place but eventually does when we click on the grocery then it
+  loads the other js file
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  # Higher Order Components
+  - A function that takes a component and returns a component
+  - At the end of the day, just a normal JS function
+
+  - Acts like an enhancer, i.e., modifies the component and returns it
+
+  - eg., in our app we are going to make promoted card from the our
+    exisiting restaurant card ccomponent. Our higher order component will
+    take the restaurant card and spit out promoted and not promoted cards
+    
+
+
+
+
+
+
+
+
+
+
+
+
+  
+# Two important layers in React Application
+- UI Layer 
+- Data Layer
+
+- UI Layer is powered by Data Layer

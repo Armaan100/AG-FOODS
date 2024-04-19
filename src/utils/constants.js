@@ -19,4 +19,5 @@ import {CDN_URL} from "../utils/constants";
 [imported in RestaurantCard]
 */
 
+export const RESTAURANT_BODY_API="https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.3397809&lng=76.3868797&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
 export const MENU_API="https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=30.3573719&lng=76.3635176&restaurantId=";
